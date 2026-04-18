@@ -27,6 +27,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Debug repo files
+        run: ls -R
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
@@ -34,9 +37,9 @@ jobs:
           context: .
           push: true
           tags: |
-            your-dockerhub-username/your-image-name:latest
-            your-dockerhub-username/your-image-name:${{ github.sha }}
-            your-dockerhub-username/your-image-name:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
       - name: Generate artifact attestation
         uses: actions/attest@v4
