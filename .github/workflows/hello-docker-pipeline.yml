@@ -41,7 +41,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
-            
+            ghcr.io/thecapstone/docker-hub-pipeline:latest
+            ghcr.io/thecapstone/docker-hub-pipeline:${{ github.sha }}
+            ghcr.io/thecapstone/docker-hub-pipeline:${{ github.ref_name }}
