@@ -40,15 +40,15 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ env.IMAGE_NAME_LC }}:latest
-            ghcr.io/${{ env.IMAGE_NAME_LC }}:${{ github.sha }}
-            ghcr.io/${{ env.IMAGE_NAME_LC }}:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
       - name: Generate artifact attestation
         if: ${{ steps.push.outputs.digest != '' }}
         uses: actions/attest@v4
         with:
-          subject-name: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}/${{ github.event.repository.name }}"
+          subject-name: "ghcr.io/${{ github.repository }}:latest"
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
           
