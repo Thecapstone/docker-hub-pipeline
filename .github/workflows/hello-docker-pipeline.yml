@@ -30,6 +30,9 @@ jobs:
       - name: Debug repo files
         run: ls -R
 
+      - name: Set lowercase image name
+        run: echo "IMAGE_NAME_LC=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
@@ -37,9 +40,9 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.event.repository.name }}:latest
-            ghcr.io/${{ github.event.repository.name }}:${{ github.sha }}
-            ghcr.io/${{ github.event.repository.name }}:${{ github.ref_name }}
+            ghcr.io/${{ env.IMAGE_NAME_LC }}/${{ github.event.repository.name }}:latest
+            ghcr.io/${{ env.IMAGE_NAME_LC }}/${{ github.event.repository.name }}:${{ github.sha }}
+            ghcr.io/${{ env.IMAGE_NAME_LC }}/${{ github.event.repository.name }}:${{ github.ref_name }}
 
       - name: Generate artifact attestation
         uses: actions/attest@v4
