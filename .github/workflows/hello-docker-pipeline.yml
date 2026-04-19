@@ -27,9 +27,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Debug repo files
-        run: ls -R
-
       - name: Set lowercase image name
         run: echo "IMAGE_NAME_LC=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
@@ -45,7 +42,6 @@ jobs:
             ghcr.io/${{ github.repository }}:${{ github.ref_name }}
 
       - name: Generate artifact attestation
-        if: ${{ steps.push.outputs.digest != '' }}
         uses: actions/attest@v4
         with:
           subject-name: "ghcr.io/${{ github.repository }}:latest"
