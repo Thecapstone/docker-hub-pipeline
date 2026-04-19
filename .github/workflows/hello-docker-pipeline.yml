@@ -50,6 +50,3 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
-        
-      - name: Print digest
-        run: echo "Image digest: ${{ steps.push.outputs.digest }}"
