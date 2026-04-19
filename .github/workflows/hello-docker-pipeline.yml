@@ -25,7 +25,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PAT }}
 
       - name: Debug repo files
         run: ls -R
@@ -50,3 +50,7 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+          
+      - name: Print Digest
+        run: echo "Digest: ${{ steps.push.outputs.digest }}"
+
